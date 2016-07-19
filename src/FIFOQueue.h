@@ -8,6 +8,8 @@
 #ifndef SRC_FIFOQUEUE_H_
 #define SRC_FIFOQUEUE_H_
 
+#include <pthread.h>
+
 namespace Project {
 	namespace System {
 
@@ -23,6 +25,8 @@ namespace Project {
 			void Push(T element);
 			T Pop();
 		private:
+			pthread_mutex_t head_mutex;
+			pthread_mutex_t tail_mutex;
 			Node* head;
 			Node* tail;
 		};

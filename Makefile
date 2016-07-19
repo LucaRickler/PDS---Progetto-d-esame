@@ -1,7 +1,7 @@
 CXXFLAGS =	-std=c++11	-O2 -g  -Wall -fmessage-length=0
 
 SYSOBJ = 	src/Runtime.o src/FIFOQueue.o
-AGENTOBJ = 	src/Agent.o
+AGENTOBJ = 	src/Agent.o src/Action.o
 COMMSOBJ = 	src/Message.o
 OBJS =		PDS-project.o
 OBJS += 	$(SYSOBJ)

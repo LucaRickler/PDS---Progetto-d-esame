@@ -14,6 +14,7 @@
 #include <cmath>
 #include <vector>
 #include <functional>
+#include <pthread.h>
 
 using std::string;
 using std::vector;
@@ -40,6 +41,7 @@ namespace Project {
 #include "FIFOQueue.cpp"
 #include "Message.h"
 #include "Agent.h"
+#include "Action.h"
 #include "Runtime.h"
 
 #endif /* SRC_PROJECT_H_ */

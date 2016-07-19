@@ -12,14 +12,27 @@ namespace System {
 
 template <typename T>
 FIFOQueue<T>::FIFOQueue() {
-	// TODO Auto-generated constructor stub
-
+	pthread_mutex_init(&head_mutex, NULL);
+	pthread_mutex_init(&tail_mutex, NULL);
+	struct Node * n = new struct Node();
+	n->next = NULL;
+	head = tail = n;
 }
 
 template <typename T>
 FIFOQueue<T>::~FIFOQueue() {
-	// TODO Auto-generated destructor stub
+	do{
+		Node* n = head->next;
+		delete head;
+		head = n;
+	}while(head);
 }
+
+template <typename T>
+T Pop(){
+
+}
+
 
 } /* namespace System */
 } /* namespace AgentC */

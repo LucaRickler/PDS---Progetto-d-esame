@@ -6,9 +6,7 @@
 // Description : Hello World in C, Ansi-style
 //============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
+#include "src/project.h"
 
 int main(void) {
 	puts("Mine!");

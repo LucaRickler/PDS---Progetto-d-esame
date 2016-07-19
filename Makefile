@@ -1,10 +1,10 @@
-CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
+CXXFLAGS =	-std=c++11	-O2 -g  -Wall -fmessage-length=0
 
-OBJS =		PDS-project.o
+OBJS =		PDS-project.o src/Runtime.o src/project.h
 
 LIBS =
 
-TARGET =	PDS-project
+TARGET =	bin/PDS-project
 
 $(TARGET):	$(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)

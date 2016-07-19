@@ -1,2 +1,4 @@
-bin/
+bin/PDS-project
 *.o
+.cproject
+.project

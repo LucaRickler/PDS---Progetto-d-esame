@@ -9,8 +9,14 @@
 #define SRC_RUNTIME_H_
 
 #include "project.h"
+#include "FIFOQueue.h"
 
-namespace AgentC {
+//using namespace Project;
+
+namespace Project {
+	namespace Agent {
+		//typename ActionWrapper std::function<void()>;
+	}
 	namespace System {
 
 		class Runtime {
@@ -18,10 +24,11 @@ namespace AgentC {
 			Runtime();
 			virtual ~Runtime();
 
-			void Init(string* argv, int argc);
+			void Init(int argc, char** argv);
+			void Init();
 
 		private:
-			Project::System::FIFOQueue TaskQueue;
+			Project::System::FIFOQueue<std::function<void()>*> TaskQueue;
 		};
 
 } /* namespace System */

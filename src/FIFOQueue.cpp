@@ -1,30 +1,24 @@
 /*
- * Runtime.cpp
+ * FIFOQueue.cpp
  *
  *  Created on: 19/lug/2016
  *      Author: luca
  */
 
-#include "Runtime.h"
+#include "FIFOQueue.h"
 
 namespace Project {
 namespace System {
 
-Runtime::Runtime() {
+template <typename T>
+FIFOQueue<T>::FIFOQueue() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Runtime::~Runtime() {
+template <typename T>
+FIFOQueue<T>::~FIFOQueue() {
 	// TODO Auto-generated destructor stub
-}
-
-void Runtime::Init(int argc, char** argv) {
-
-}
-
-void Runtime::Init() {
-
 }
 
 } /* namespace System */

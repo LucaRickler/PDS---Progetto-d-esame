@@ -12,19 +12,23 @@
 #include <string>
 #include <iomanip>
 #include <cmath>
+#include <vector>
+#include <functional>
 
 using std::string;
+using std::vector;
 
 namespace Project {
 
 	namespace System {
 		class Runtime;
-		class FIFOQueue;
+		template <typename T> class FIFOQueue;
 	}
 
 	namespace Agent {
 		class Agent;
 		class Action;
+		//class ActionWrapper;
 	}
 
 	namespace Comms {
@@ -33,5 +37,9 @@ namespace Project {
 
 }
 
+#include "FIFOQueue.cpp"
+#include "Message.h"
+#include "Agent.h"
+#include "Runtime.h"
 
 #endif /* SRC_PROJECT_H_ */

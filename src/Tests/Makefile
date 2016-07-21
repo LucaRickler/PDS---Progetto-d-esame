@@ -1,4 +1,4 @@
-CXXFLAGS =	-std=c++11	-O2 -g  -Wall -fmessage-length=0
+CXXFLAGS =	-std=c++11 -O2 -g -Wall -fmessage-length=0 -lpthread
 
 RUNTIME = 	../Runtime.o ../FIFOQueue.o Runtime_test.o
 FIFOQ = 	../FIFOQueue.o FIFOQueue_test.o 
@@ -10,16 +10,16 @@ OBJS = 	$(RUNTIME) $(FIFOQ) $(AGENT) $(ACTION)
 LIBS =
 
 RuntimeTest:	$(RUNTIME)
-	$(CXX) -o $@ $(RUNTIME) $(LIBS)
+	$(CXX) -o $@ $(RUNTIME) $(LIBS) $(CXXFLAGS)
 
 FIFOQTest:	$(FIFOQ)
-	$(CXX) -o $@ $(FIFOQ) $(LIBS)
+	$(CXX) -o $@ $(FIFOQ) $(LIBS) $(CXXFLAGS)
 
 AgentTest:	$(AGENT)
-	$(CXX) -o $@ $(AGENT) $(LIBS)
+	$(CXX) -o $@ $(AGENT) $(LIBS) $(CXXFLAGS)
 
 ActionTest: $(ACTION)
-	$(CXX) -o $@ $(ACTION) $(LIBS)
+	$(CXX) -o $@ $(ACTION) $(LIBS) $(CXXFLAGS)
 
 all:	RuntimeTest FIFOQTest AgentTest ActionTest
 

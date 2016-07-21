@@ -11,8 +11,7 @@
 int main(int argc, char** argv) {
 	puts("Mine!");
 
-	Project::Agent::Action act1 = Project::Agent::Action();
-
-	act1.DoAction()();
+	Project::System::Runtime* runtime = new Project::System::Runtime();
+	runtime->Init(argc, argv);
 	return 0;
 }

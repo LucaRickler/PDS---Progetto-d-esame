@@ -21,7 +21,7 @@ namespace Project {
 
 		class Agent {
 		public:
-			Agent();
+			Agent(Project::System::Runtime* runtime);
 			virtual ~Agent();
 			void AddAction (Action* action);
 			void Setup ();
@@ -34,6 +34,7 @@ namespace Project {
 			std::string name;
 			//AgentID id;
 		private:
+			Project::System::Runtime* runtime;
 			Project::System::FIFOQueue<Project::Comms::Message*> messageQueue;
 		};
 

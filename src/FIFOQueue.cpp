@@ -6,6 +6,7 @@
  */
 
 #include "FIFOQueue.h"
+#include <pthread.h>
 
 namespace Project {
 namespace System {
@@ -29,9 +30,32 @@ FIFOQueue<T>::~FIFOQueue() {
 }
 
 template <typename T>
-T Pop(){
-
+bool FIFOQueue<T>::Pop(T& element){
+	pthread_mutex_lock(&head_mutex);
+	struct Node * new_head = head->next;
+	if (new_head == NULL) {
+		pthread_mutex_unlock(&head_mutex);
+	    return false;
+	}
+	element = new_head->content;
+	struct Node * n = head;
+	head = new_head;
+	pthread_mutex_unlock(&head_mutex);
+	delete(n);
+	return true;
 }
+
+template <typename T>
+void FIFOQueue<T>::Push(const T& element){
+	struct Node * n = new struct Node();
+	n->content = element;
+	n->next = NULL;
+	pthread_mutex_lock(&tail_mutex);
+	tail->next = n;
+	tail = n;
+	pthread_mutex_unlock(&tail_mutex);
+}
+
 
 
 } /* namespace System */

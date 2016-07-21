@@ -10,8 +10,8 @@
 namespace Project {
 namespace Agent {
 
-Agent::Agent() {
-	// TODO Auto-generated constructor stub
+Agent::Agent(Project::System::Runtime* runtime) {
+	this->runtime = runtime;
 
 }
 

@@ -15,16 +15,16 @@ namespace Project {
 
 		template <typename T>
 		class FIFOQueue {
-			struct Node {
-				T content;
-				Node* next;
-			};
 		public:
 			FIFOQueue();
 			virtual ~FIFOQueue();
-			void Push(T element);
-			T Pop();
+			void Push(const T&);
+			bool Pop(T&);
 		private:
+			struct Node {
+				T content;
+				struct Node* next;
+			};
 			pthread_mutex_t head_mutex;
 			pthread_mutex_t tail_mutex;
 			Node* head;
@@ -33,5 +33,7 @@ namespace Project {
 
 	} /* namespace System */
 } /* namespace AgentC */
+
+//#include "FIFOQueue.cpp"
 
 #endif /* SRC_FIFOQUEUE_H_ */

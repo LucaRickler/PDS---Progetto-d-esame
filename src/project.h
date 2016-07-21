@@ -8,7 +8,7 @@
 #ifndef SRC_PROJECT_H_
 #define SRC_PROJECT_H_
 
-#include <stdio.h>
+#include <iostream>
 #include <string>
 #include <iomanip>
 #include <cmath>
@@ -24,6 +24,7 @@ namespace Project {
 	namespace System {
 		class Runtime;
 		template <typename T> class FIFOQueue;
+		void *thread_exec (void *);
 	}
 
 	namespace Agent {

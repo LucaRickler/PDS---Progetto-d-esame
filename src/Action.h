@@ -19,7 +19,7 @@ public:
 	Action (Agent* a);
 	virtual ~Action();
 	std::function<void()> DoAction ();
-	void Act ();
+	virtual void Act () = 0;
 };
 
 } /* namespace Agent */

@@ -9,33 +9,28 @@
 #define SRC_AGENT_H_
 
 #include "project.h"
+//#include "Runtime.h"
 
 namespace Project {
-
-	namespace Comms {
-		class Message;
-	}
-
 	namespace Agent {
-		class Action;
-
 		class Agent {
 		public:
-			Agent(Project::System::Runtime* runtime);
-			virtual ~Agent();
+			Agent (System::Runtime* runtime, string name);
+			virtual ~Agent ();
 			void AddAction (Action* action);
-			void Setup ();
+			virtual void Setup () = 0;
 			void DoDelete ();
-			void OnDelete ();
-			void Send (Project::Comms::Message* message);
-			Project::Comms::Message ReadMessage ();
-			std::vector<Action*> myActions;
+			virtual void OnDelete ();
+			void Send (Comms::Message* message);
+			Comms::Message ReadMessage ();
+			void ScheduleAction (Action*);
 		protected:
+			std::vector<Action*> myActions;
 			std::string name;
 			//AgentID id;
 		private:
-			Project::System::Runtime* runtime;
-			Project::System::FIFOQueue<Project::Comms::Message*> messageQueue;
+			System::Runtime* runtime;
+			System::FIFOQueue<Comms::Message*> messageQueue;
 		};
 
 	} /* namespace Agent */

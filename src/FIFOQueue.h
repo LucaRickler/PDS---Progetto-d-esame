@@ -20,6 +20,9 @@ namespace Project {
 			virtual ~FIFOQueue();
 			void Push(const T&);
 			bool Pop(T&);
+			bool isEmpty();
+
+			bool Join(FIFOQueue<T>*);
 		private:
 			struct Node {
 				T content;

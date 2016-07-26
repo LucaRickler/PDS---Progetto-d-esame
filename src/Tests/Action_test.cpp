@@ -33,10 +33,13 @@ int main() {
 	act1->Act();
 	act2->Act();
 	cout << "Esecuzione dell'azione via wrapper: " << endl;
-	auto func1 = act1->DoAction();
-	func1();
-	func1 = act2->DoAction();
-	func1();
+	auto func1 = act1->actionReference;
+	(*func1)();
+	func1 = act2->actionReference;
+	(*func1)();
+
+	//std::function<void()>* functor = new std::function<void()>(func1);
+	//(*functor)();
 
 	return 0;
 }

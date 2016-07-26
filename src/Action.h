@@ -12,13 +12,13 @@
 
 namespace Project {
 namespace Agent {
-
 class Action {
 public:
 	Action();
 	Action (Agent* a);
 	virtual ~Action();
 	std::function<void()> DoAction ();
+	std::function<void()>* actionReference;
 	virtual void Act () = 0;
 };
 

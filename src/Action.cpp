@@ -11,12 +11,11 @@ namespace Project {
 namespace Agent {
 
 Action::Action() {
-	// TODO Auto-generated constructor stub
-
+	actionReference = new std::function<void()>([this](){this->Act();});
 }
 
 Action::~Action() {
-	// TODO Auto-generated destructor stub
+	delete actionReference;
 }
 
 void Action::Act() {
@@ -24,7 +23,7 @@ void Action::Act() {
 }
 
 std::function<void()> Action::DoAction() {
-	return [this](){this->Act();};
+	return ([this](){this->Act();});
 }
 
 } /* namespace Agent */

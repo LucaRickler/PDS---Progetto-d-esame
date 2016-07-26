@@ -5,22 +5,39 @@
  *      Author: luca
  */
 
-#include "project.h"
-
-#ifndef SRC_THREAD_CODE
-#define SRC_THREAD_CODE
+#include "thread_code.h"
 
 namespace Project {
-	namespace System {
+namespace System {
 
-		void *thread_exec (void* arg) {
+void* ThreadExec (void* arg) {
+	ThreadPackage* tp = (ThreadPackage*) arg;
 
-			return NULL;
+	std::function<void()>* task = NULL;
 
+	pthread_mutex_lock(tp->run_cond_lock);
+	while (*(tp->run_cond)) {
+		pthread_mutex_unlock(tp->run_cond_lock);
+		while(tp->task_queue->Pop(task)){
+			if(task){
+				(*task)();
+				task = NULL;
+			}
 		}
 
-	}
-}
-#endif
+		pthread_mutex_lock(tp->empty_task_lock);
+		while (tp->task_queue->isEmpty()){
+			pthread_cond_wait(tp->empty_task, tp->empty_task_lock);
+		}
+		pthread_mutex_unlock(tp->empty_task_lock);
 
+		pthread_mutex_lock(tp->run_cond_lock);
+	}
+	pthread_mutex_unlock(tp->run_cond_lock);
+
+	return NULL;
+}
+
+}
+}
 

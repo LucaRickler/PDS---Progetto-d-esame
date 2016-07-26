@@ -7,6 +7,12 @@
 //============================================================================
 
 #include "src/project.h"
+//#include "src/FIFOQueue.cpp"
+//#include "src/Message.h"
+//#include "src/Agent.h"
+//#include "src/Action.h"
+//#include "src/thread_code.h"
+#include "src/Runtime.h"
 
 int main(int argc, char** argv) {
 	puts("Mine!");

@@ -8,6 +8,27 @@
 #ifndef SRC_PROJECT_H_
 #define SRC_PROJECT_H_
 
+namespace Project {
+
+	namespace System {
+		class Runtime;
+		template <typename T> class FIFOQueue;
+		struct ThreadPackage;
+		void *ThreadExec (void* arg);
+	}
+
+	namespace Agent {
+		class Agent;
+		class Action;
+	}
+
+	namespace Comms {
+		class Message;
+	}
+
+}
+
+
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -18,31 +39,8 @@
 
 using std::string;
 using std::vector;
-
-namespace Project {
-
-	namespace System {
-		class Runtime;
-		template <typename T> class FIFOQueue;
-		void *thread_exec (void *);
-	}
-
-	namespace Agent {
-		class Agent;
-		class Action;
-		//class ActionWrapper;
-	}
-
-	namespace Comms {
-		class Message;
-	}
-
-}
+using std::function;
 
 #include "FIFOQueue.cpp"
-#include "Message.h"
-#include "Agent.h"
-#include "Action.h"
-#include "Runtime.h"
 
 #endif /* SRC_PROJECT_H_ */

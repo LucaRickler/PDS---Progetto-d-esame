@@ -11,11 +11,11 @@
 //#include "Agent.h"
 //#include "FIFOQueue.h"
 #include "project.h"
-#include "thread_code.h"
 #include "Agent.h"
 
 namespace Project {
 	namespace System {
+		//struct ThreadPackage;
 
 		class Runtime {
 		public:
@@ -25,7 +25,7 @@ namespace Project {
 			void Init(int argc, char** argv);
 			//void Init();
 			template <typename T> void friend CreateAgent(Runtime* runtime, string name);
-
+			friend void* ThreadExec (void* arg);
 
 		private:
 			vector<pthread_t> threads;
@@ -54,11 +54,10 @@ namespace Project {
 			runtime->agents.push_back(agent);
 		}
 
-
-
 	} /* namespace System */
 } /* namespace AgentC */
 
+#include "thread_code.h"
 //#include "Runtime.cpp"
 
 #endif /* SRC_RUNTIME_H_ */

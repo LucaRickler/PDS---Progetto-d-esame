@@ -13,20 +13,30 @@
 
 using Project::System::Runtime;
 
-class MyAgent : public Project::Agent::Agent {
+class MyAgent1 : public Project::Agent::Agent {
 public:
-	MyAgent (Runtime* runtime, string name) : Agent(runtime, name) {}
+	MyAgent1 (Runtime* runtime, string name) : Agent(runtime, name) {}
 	void Setup() {
 		std::cout << "Hello world from " << name << std::endl;
 	}
 };
-
+class MyAgent2 : public Project::Agent::Agent {
+public:
+	MyAgent2 (Runtime* runtime, string name) : Agent(runtime, name) {}
+	void Setup() {
+		std::cout << "I shouldn't be here!"<< std::endl;
+	}
+};
 
 
 int main() {
-	Runtime runtime = Runtime();
+	Runtime* runtime = new Runtime();
 
-	Project::System::CreateAgent<MyAgent>(&runtime, "agent");
+	Project::System::CreateAgent<MyAgent1>(runtime, "agent_1");
+	Project::System::CreateAgent<MyAgent1>(runtime, "agent_2");
+	Project::System::CreateAgent<MyAgent2>(runtime, "agent_3");
 
+
+	runtime->Init(3,NULL);
 	return 0;
 }

@@ -30,25 +30,32 @@ Runtime::~Runtime() {
 }
 
 void Runtime::Init(int argc, char** argv) {
+	std::for_each(agents.begin(), agents.end(), [this](Agent::Agent* a){
+		function<void()>* func = new function<void()>([a](){a->Setup();});
+		task_queue->Push(func);
+	});
 
+	SetUpTrheads(argc);
+	/*function<void()>* func;
+	while(task_queue->Pop(func)){
+		(*func)();
+	}*/
+
+
+
+	pthread_mutex_lock(&run_cond_lock);
+	run_cond = false;
+	pthread_mutex_unlock(&run_cond_lock);
+
+	std::for_each(threads.begin(), threads.end(), [](pthread_t t){pthread_join(t,NULL);});
 }
 
 void Runtime::SetUpTrheads(int n) {
 	pthread_t thread;
-	pthread_attr_t detached;
-	pthread_attr_init(&detached);
-	pthread_attr_setdetachstate(&detached, PTHREAD_CREATE_DETACHED);
-	ThreadPackage* tp = new ThreadPackage;
-	tp->runtime = this;
-	tp->task_queue = this->task_queue;
-	tp->empty_task = &(this->empty_task);
-	tp->empty_task_lock = &(this->empty_task_lock);
-	tp->run_cond = &(this->run_cond);
-	tp->run_cond_lock = &(this->run_cond_lock);
-	tp->active_threads = &(this->active_threads);
-	tp->active_threads_lock = &(this->active_threads_lock);
-	for(int i = 1; i < n; i++) {
-		pthread_create(&thread, &detached, &ThreadExec, (void*)&tp);
+	//pthread_attr_t detached;
+	//pthread_attr_init(&detached);
+	for(int i = 0; i < n; i++) {
+		pthread_create(&thread, NULL, &ThreadExec, (void*)this);
 		threads.push_back(thread);
 		active_threads++;
 	}

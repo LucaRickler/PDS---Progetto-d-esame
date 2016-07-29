@@ -36,6 +36,7 @@ namespace Project {
 #include <vector>
 #include <functional>
 #include <pthread.h>
+#include <algorithm>
 
 using std::string;
 using std::vector;

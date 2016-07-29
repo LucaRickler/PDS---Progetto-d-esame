@@ -18,7 +18,7 @@ namespace Project {
 			Agent (System::Runtime* runtime, string name);
 			virtual ~Agent ();
 			void AddAction (Action* action);
-			virtual void Setup () = 0;
+			virtual void Setup ();
 			void DoDelete ();
 			virtual void OnDelete ();
 			void Send (Comms::Message* message);

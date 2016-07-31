@@ -92,5 +92,17 @@ bool FIFOQueue<T>::Join(FIFOQueue<T> * other) {
 	return false;
 }
 
+template <typename T>
+void FIFOQueue<T>::Clear() {
+	pthread_mutex_lock(&head_mutex);
+	Node* n;
+	while(head->next){
+		n = head;
+		head = n->next;
+		delete n;
+	}
+	pthread_mutex_unlock(&head_mutex);
+}
+
 } /* namespace System */
 } /* namespace AgentC */

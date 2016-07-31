@@ -8,14 +8,12 @@
 #ifndef SRC_RUNTIME_H_
 #define SRC_RUNTIME_H_
 
-//#include "Agent.h"
-//#include "FIFOQueue.h"
 #include "project.h"
 #include "Agent.h"
+#include "Action.h"
 
 namespace Project {
 	namespace System {
-		//struct ThreadPackage;
 
 		class Runtime {
 		public:
@@ -26,22 +24,37 @@ namespace Project {
 			//void Init();
 			template <typename T> void friend CreateAgent(Runtime* runtime, string name);
 			friend void* ThreadExec (void* arg);
+			void DeleteAgent(Agent::Agent* agt);
+			void ScheduleAction(Agent::Action* act);
+			void SetMaxTurns (const int &);
 
 		private:
 			vector<pthread_t> threads;
+
 			int active_threads;
 			pthread_mutex_t active_threads_lock;
+
 			pthread_cond_t empty_task;
 			pthread_mutex_t empty_task_lock;
+
 			bool run_cond;
 			pthread_mutex_t run_cond_lock;
 
+			pthread_cond_t main_t_sleep;
+			pthread_mutex_t main_t_sleep_lock;
+
+			pthread_barrier_t turn_begin_barrier;
+			pthread_barrier_t exec_sleep_barrier;
+
 			Project::System::FIFOQueue<std::function<void()>*>* task_queue;
 			Project::System::FIFOQueue<std::function<void()>*>* next_turn_task_queue;
-			void SetUpTrheads(int n);
-
 			vector<Agent::Agent*> agents;
 
+			void SetUpTrheads(int n);
+			void MainCycle ();
+
+			int max_turns;
+			//int turn;
 		};
 		template <typename T>
 		Agent::Agent* InstantiateAgent(Runtime* runtime, string name) {

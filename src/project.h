@@ -13,7 +13,6 @@ namespace Project {
 	namespace System {
 		class Runtime;
 		template <typename T> class FIFOQueue;
-		struct ThreadPackage;
 		void *ThreadExec (void* arg);
 	}
 
@@ -37,10 +36,12 @@ namespace Project {
 #include <functional>
 #include <pthread.h>
 #include <algorithm>
+#include <unordered_map>
 
 using std::string;
 using std::vector;
 using std::function;
+using std::unordered_map;
 
 #include "FIFOQueue.cpp"
 

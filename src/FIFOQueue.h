@@ -23,6 +23,7 @@ namespace Project {
 			bool isEmpty();
 
 			bool Join(FIFOQueue<T>*);
+			void Clear();
 		private:
 			struct Node {
 				T content;

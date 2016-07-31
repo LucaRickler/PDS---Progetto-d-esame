@@ -9,24 +9,30 @@
 #define SRC_AGENT_H_
 
 #include "project.h"
-//#include "Runtime.h"
+#include "Runtime.h"
 
 namespace Project {
 	namespace Agent {
+		typedef std::pair<string, Action*> ActionMapping;
 		class Agent {
 		public:
 			Agent (System::Runtime* runtime, string name);
 			virtual ~Agent ();
-			void AddAction (Action* action);
 			virtual void Setup ();
 			void DoDelete ();
 			virtual void OnDelete ();
-			void Send (Comms::Message* message);
-			Comms::Message ReadMessage ();
-			void ScheduleAction (Action*);
+
+			void AddAction (const string& key, Action* act);
+			void ScheduleAction (const string& act);
+
+			void Send (const Comms::Message* msg);
+			bool ReadMessage (Comms::Message* msg);
+
+			string GetName ();
+			Action* GetAction (const string& act);
 		protected:
-			std::vector<Action*> myActions;
-			std::string name;
+			unordered_map<string,Action*> myActions;
+			string name;
 			//AgentID id;
 		private:
 			System::Runtime* runtime;

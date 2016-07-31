@@ -10,7 +10,8 @@
 namespace Project {
 namespace Agent {
 
-Action::Action() {
+Action::Action(Agent* a) {
+	this->my_agent = a;
 	actionReference = new std::function<void()>([this](){this->Act();});
 }
 
@@ -18,13 +19,8 @@ Action::~Action() {
 	delete actionReference;
 }
 
-void Action::Act() {
-	puts("prova");
-}
+void Action::Act() {}
 
-std::function<void()> Action::DoAction() {
-	return ([this](){this->Act();});
-}
 
 } /* namespace Agent */
 } /* namespace Project */

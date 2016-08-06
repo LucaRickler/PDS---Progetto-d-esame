@@ -2,3 +2,4 @@ bin/PDS-project
 *.o
 .cproject
 .project
+dia/UML1.dia

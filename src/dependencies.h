@@ -5,8 +5,8 @@
  *      Author: luca
  */
 
-#ifndef SRC_PROJECT_H_
-#define SRC_PROJECT_H_
+#ifndef SRC_DEPENDENCIES_H_
+#define SRC_DEPENDENCIES_H_
 
 #define EXECUTION_MODE 		1
 
@@ -48,4 +48,4 @@ using std::unordered_map;
 
 #include "FIFOQueue.cpp"
 
-#endif /* SRC_PROJECT_H_ */
+#endif /* SRC_DEPENDENCIES_H_ */

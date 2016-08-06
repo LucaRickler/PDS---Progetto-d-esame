@@ -5,9 +5,8 @@
  *      Author: Luca Rickler
  */
 
-#include "../Action.h"
-#include "../Agent.h"
-#include "../dependencies.h"
+#include "../project.h"
+
 
 using Project::System::Runtime;
 

@@ -5,11 +5,8 @@
  *      Author: luca
  */
 
-#include "../Message.h"
-#include "../Action.h"
-#include "../Agent.h"
-#include  "../Runtime.h"
-#include "../thread_code.h"
+#include "../project.h"
+
 
 using namespace Project;
 

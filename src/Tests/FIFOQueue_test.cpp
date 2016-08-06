@@ -15,50 +15,36 @@ using Project::System::FIFOQueue;
 void *producer(void *);
 void *consumer(void *);
 
-struct qss {
-	FIFOQueue<int*>* q1;
-	FIFOQueue<int*>* q2;
-};
-
 int main() {
-	pthread_t thread1, thread2;//, thread3;
-	qss* qs = new qss;
-	qs->q1 = new FIFOQueue<int*>();
-	qs->q2 = new FIFOQueue<int*>();
+	pthread_t thread1, thread2;
+	FIFOQueue<int*> *q1= new FIFOQueue<int*>();
 
 
-	pthread_create(&thread1, NULL, (void* (*)(void*)) &producer, (void *) qs);
-	pthread_create(&thread2, NULL, (void* (*)(void*)) &consumer, (void *) qs);
-	//pthread_create(&thread3, NULL, (void* (*)(void*)) &producer, (void *) qs);
+	pthread_create(&thread1, NULL, (void* (*)(void*)) &producer, (void *) q1);
+	pthread_create(&thread2, NULL, (void* (*)(void*)) &consumer, (void *) q1);
 	pthread_join(thread1, NULL);
 	pthread_join(thread2, NULL);
-	//pthread_join(thread3, NULL);
 	return 0;
 }
 
 void *producer(void * arg) {
-	qss* qs = (qss*) arg;
+	FIFOQueue<int*>* q = (FIFOQueue<int*>*) arg;
 	int *count;
-	bool flag = true;
 	while (true) {
 		sleep(10);
 		for(int i = 0; i<10; i++){
 			count = new int(i);
-			qs->q2->Push(count);
-		}
-		if(flag){
-			qs->q1->Join(qs->q2);
-			flag = false;
+			q->Push(count);
 		}
 	}
 }
 
 void *consumer(void * arg) {
-	qss* qs = (qss*) arg;
+	FIFOQueue<int*>* q = (FIFOQueue<int*>*) arg;
 	while (true) {
 		sleep(1);
 		int* value;
-		if (qs->q2->Pop(value)) {
+		if (q->Pop(value)) {
 			std::cout << *value << "\n";
 			delete value;
 		} else {

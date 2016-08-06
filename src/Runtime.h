@@ -26,11 +26,12 @@ namespace Project {
 			template <typename T> void friend CreateAgent(Runtime* runtime, string name);
 			friend void* ThreadExec (void* arg);
 			void DeleteAgent(Agent::Agent* agt);
-			//void ScheduleAction(Agent::Action* act);
-			void ScheduleAction(Agent::Action* act, const int& p);
+			void ScheduleAction(Agent::Action* act);
 			void SetMaxTurns (const int &);
 			const int GetExecutionDepth ();
+
 			void DispatchMessage (Comms::Message* msg);
+			void MarkAsRead (Comms::Message* msg);
 
 		private:
 			vector<pthread_t> threads;

@@ -10,6 +10,9 @@
 namespace Project {
 namespace System {
 
+/***********************************************************************/
+/*								Constructor							   */
+/***********************************************************************/
 Runtime::Runtime(const int & e_depth) {
 	execution_depth = e_depth;
 	threads = vector<pthread_t>();
@@ -26,6 +29,9 @@ Runtime::Runtime(const int & e_depth) {
 
 }
 
+/***********************************************************************/
+/*								Destructor							   */
+/***********************************************************************/
 Runtime::~Runtime() {
 	function<void()>* func;
 	for(int i = 0; i <= execution_depth; i++) {
@@ -44,6 +50,10 @@ void Runtime::DeleteAgent(Agent::Agent* a) {
 	delete a;
 }
 
+/***********************************************************************/
+/*							Util Functions						   	   */
+/***********************************************************************/
+
 void Runtime::SetMaxTurns(const int & mt) {
 	if (mt > 0) {
 		max_turns = mt;
@@ -53,6 +63,29 @@ void Runtime::SetMaxTurns(const int & mt) {
 const int Runtime::GetExecutionDepth() {
 	return execution_depth;
 }
+
+void Runtime::ScheduleAction(Agent::Action* act) {
+	pthread_mutex_lock(&sub_turn_lock);
+	int s = (sub_turn + execution_depth)%(execution_depth + 1);
+	task_queue[s]->Push(act->actionReference);
+	//printf("action scheduled at %d\n", s);
+	pthread_mutex_unlock(&sub_turn_lock);
+}
+
+void Runtime::DispatchMessage (Comms::Message* msg) {
+	msg->receivers = agents.size();
+	std::for_each(agents.begin(), agents.end(),
+			[msg](Agent::Agent* a){a->DeliverMessage(msg);});
+}
+
+void Runtime::MarkAsRead (Comms::Message* msg) {
+	if(msg->SetRead())
+		delete msg;
+}
+
+/***********************************************************************/
+/*							Core Functions							   */
+/***********************************************************************/
 
 //Standard parallel mode
 #if EXECUTION_MODE==1
@@ -190,19 +223,6 @@ void Runtime::MainCycle() {
 }
 
 #endif
-
-void Runtime::ScheduleAction(Agent::Action* act, const int &p) {
-	pthread_mutex_lock(&sub_turn_lock);
-	int s = (sub_turn + execution_depth)%(execution_depth + 1);
-	task_queue[s]->Push(act->actionReference);
-	//printf("action scheduled at %d\n", s);
-	pthread_mutex_unlock(&sub_turn_lock);
-}
-
-void Runtime::DispatchMessage (Comms::Message* msg) {
-	std::for_each(agents.begin(), agents.end(),
-			[msg](Agent::Agent* a){a->DeliverMessage(msg);});
-}
 
 } /* namespace System */
 } /* namespace AgentC */

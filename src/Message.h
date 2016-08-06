@@ -18,17 +18,22 @@ namespace Project {
 
 		class Message {
 		public:
+			Message();
 			Message(Agent::AgentID* sender, const string& content);
+			Message(Message &);
 			virtual ~Message();
 
 			const Agent::AgentID* GetSender();
 			const string GetContent();
-			//void SetContent()
 
 			friend class System::Runtime;
 		private:
+
 			struct Agent::AgentID* sender;
 			string content;
+			int receivers;
+
+			bool SetRead();
 
 		};
 

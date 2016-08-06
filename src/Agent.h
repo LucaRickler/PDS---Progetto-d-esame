@@ -10,7 +10,7 @@
 
 #include "dependencies.h"
 #include "Runtime.h"
-//#include "Message.h"
+
 
 namespace Project {
 	namespace Agent {
@@ -40,7 +40,8 @@ namespace Project {
 			void Send (Comms::Message* msg);
 			bool ReadMessage (Comms::Message& msg);
 
-			string GetName ();
+			AgentID* GetID ();
+
 			Action* GetAction (const string& act);
 
 			int GetPriority ();
@@ -54,7 +55,7 @@ namespace Project {
 			int execution_priority;
 		private:
 			System::Runtime* runtime;
-			System::FIFOQueue<Comms::Message*> messageQueue;
+			System::FIFOQueue<Comms::Message*>* messageQueue;
 		};
 
 	} /* namespace Agent */

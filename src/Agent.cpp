@@ -13,7 +13,7 @@ namespace Agent {
 Agent::Agent(Project::System::Runtime* runtime, string name, int id) {
 	this->runtime = runtime;
 	this->myActions = unordered_map<string,Action*>();
-	this->messageQueue = System::FIFOQueue<Comms::Message*>();
+	this->messageQueue = new System::FIFOQueue<Comms::Message*>();
 	//this->name = name;
 	this->id = new AgentID(name, id);
 }
@@ -21,10 +21,14 @@ Agent::Agent(Project::System::Runtime* runtime, string name, int id) {
 Agent::~Agent() {
 	std::for_each(myActions.begin(), myActions.end(), [](ActionMapping a){delete a.second;});
 	Comms::Message* msg;
-	while(messageQueue.Pop(msg)){
+	while(messageQueue->Pop(msg)){
 		delete msg;
 	}
 	delete id;
+}
+
+AgentID* Agent::GetID() {
+	return id;
 }
 
 void Agent::AddAction (const string& key, Action* action){
@@ -32,7 +36,7 @@ void Agent::AddAction (const string& key, Action* action){
 }
 
 void Agent::ScheduleAction(const string& key) {
-	runtime->ScheduleAction(GetAction(key), GetPriority());
+	runtime->ScheduleAction(GetAction(key));
 }
 
 Action* Agent::GetAction(const string& key) {
@@ -57,10 +61,20 @@ void Agent::Send(Comms::Message* msg) {
 }
 
 void Agent::DeliverMessage(Comms::Message* msg) {
-	this->messageQueue.Push(msg);
+	this->messageQueue->Push(msg);
 }
 
+bool Agent::ReadMessage (Comms::Message& msg){
+	Comms::Message* temp;
+	if(!messageQueue->Pop(temp)){
+		return false;
+	}
 
+	msg = Comms::Message(*temp);
+
+	runtime->MarkAsRead(temp);
+	return true;
+}
 
 void Agent::DoDelete() {
 	OnDelete();

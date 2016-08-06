@@ -6,6 +6,7 @@
  */
 
 #include "../Action.h"
+//#include "../Agent.h"
 
 using Project::Agent::Action;
 using std::cout;
@@ -14,7 +15,7 @@ using std::endl;
 class myAction : public Action {
 public:
 	string name;
-	myAction() : Action(){
+	myAction(Project::Agent::Agent* a) : Action(a){
 
 	}
 	void Act() {
@@ -23,9 +24,10 @@ public:
 };
 
 int main() {
+	Project::Agent::Agent* a;
 	myAction* act1,* act2;
-	act1 = new myAction();
-	act2 = new myAction();
+	act1 = new myAction(a);
+	act2 = new myAction(a);
 	act1->name = "1";
 	act2->name = "2";
 

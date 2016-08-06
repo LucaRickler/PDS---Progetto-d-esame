@@ -27,7 +27,6 @@ public:
 	}
 	void Setup() {
 		std::cout << "Hello world from " << id->name << std::endl;
-		//Project::Agent::Action* act1 = ;
 		AddAction("act1", new MyAction(this));
 		ScheduleAction("act1");
 	}
@@ -39,7 +38,6 @@ public:
 	}
 	void Setup() {
 		std::cout << "I shouldn't be here!"<< std::endl;
-		//Project::Agent::Action* act1 = new MyAction(this);
 		AddAction("act1", new MyAction(this));
 		ScheduleAction("act1");
 	}
@@ -54,7 +52,6 @@ int main() {
 
 	for(int i = 0; i < 1; i++)
 		Project::System::CreateAgent<MyAgent1>(runtime, "agent_1");
-	//Project::System::CreateAgent<MyAgent1>(runtime, "agent_2");
 	for(int i = 0; i < 1; i++)
 		Project::System::CreateAgent<MyAgent2>(runtime, "agent_2");
 

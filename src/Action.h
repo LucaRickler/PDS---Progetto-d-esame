@@ -14,7 +14,6 @@ namespace Project {
 namespace Agent {
 class Action {
 public:
-	//Action();
 	Action (Agent* a);
 	virtual ~Action();
 	function<void()>* actionReference;

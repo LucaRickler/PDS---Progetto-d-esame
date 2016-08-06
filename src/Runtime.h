@@ -21,7 +21,7 @@ namespace Project {
 			Runtime(const int &);
 			virtual ~Runtime();
 
-			void Init(int argc, char** argv);
+			void Init(int nthreads);
 			//void Init();
 			template <typename T> void friend CreateAgent(Runtime* runtime, string name);
 			friend void* ThreadExec (void* arg);

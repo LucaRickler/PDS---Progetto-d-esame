@@ -56,6 +56,6 @@ int main() {
 
 
 
-	runtime->Init(1,NULL);
+	runtime->Init(1);
 	return 0;
 }

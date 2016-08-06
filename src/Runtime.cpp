@@ -90,13 +90,13 @@ void Runtime::MarkAsRead (Comms::Message* msg) {
 //Standard parallel mode
 #if EXECUTION_MODE==1
 
-void Runtime::Init(int argc, char** argv) {
+void Runtime::Init(int nthreads) {
 	std::for_each(agents.begin(), agents.end(), [this](Agent::Agent* a) {
 		function<void()>* func = new function<void()>([a]() {a->Setup();});
 		task_queue[a->GetPriority()]->Push(func);
 	});
 
-	SetUpTrheads(argc);
+	SetUpTrheads(nthreads);
 
 	MainCycle();
 }
@@ -145,7 +145,7 @@ void Runtime::MainCycle() {
 //Sequential mode
 #elif EXECUTION_MODE==0
 
-void Runtime::Init(int argc, char** argv) {
+void Runtime::Init(int nthreads) {
 	std::for_each(agents.begin(), agents.end(), [this](Agent::Agent* a) {
 		function<void()>* func = new function<void()>([a]() {a->Setup();});
 		task_queue[a->GetPriority()]->Push(func);
@@ -174,13 +174,13 @@ void Runtime::MainCycle() {
 //Agent-dedicated threads parallel mode
 #elif EXECUTION_MODE==2
 
-void Runtime::Init(int argc, char** argv) {
+void Runtime::Init(int nthreads) {
 	std::for_each(agents.begin(), agents.end(), [this](Agent::Agent* a) {
 		function<void()>* func = new function<void()>([a]() {a->Setup();});
 		task_queue[a->GetPriority()]->Push(func);
 	});
 
-	SetUpTrheads(argc);
+	SetUpTrheads(nthreads);
 
 	MainCycle();
 }

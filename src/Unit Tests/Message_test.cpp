@@ -65,7 +65,7 @@ int main() {
 	System::CreateAgent<Receiver>(runtime, "receiver");
 	System::CreateAgent<Receiver>(runtime, "receiver");
 
-	runtime->Init(3,NULL);
+	runtime->Init(3);
 
 	return 0;
 }

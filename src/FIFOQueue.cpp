@@ -68,31 +68,6 @@ bool FIFOQueue<T>::isEmpty() {
 }
 
 template <typename T>
-bool FIFOQueue<T>::Join(FIFOQueue<T> * other) {
-	/*if(!other->isEmpty()){
-		pthread_mutex_lock(&tail_mutex);
-		pthread_mutex_lock(&(other->head_mutex));
-		tail->next = other->head->next;
-		pthread_mutex_unlock(&(other->head_mutex));
-		pthread_mutex_lock(&(other->tail_mutex));
-		struct Node* n = new struct Node;
-		n->next = NULL;
-		other->tail = n;
-		pthread_mutex_unlock(&(other->tail_mutex));
-		pthread_mutex_unlock(&tail_mutex);
-		return true;
-	}
-	return false;*/
-	if(!other->isEmpty()){
-		T element;
-		while(other->Pop(element))
-			this->Push(element);
-		return true;
-	}
-	return false;
-}
-
-template <typename T>
 void FIFOQueue<T>::Clear() {
 	pthread_mutex_lock(&head_mutex);
 	Node* n;

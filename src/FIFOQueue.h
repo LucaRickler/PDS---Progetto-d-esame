@@ -21,8 +21,6 @@ namespace Project {
 			void Push(const T&);
 			bool Pop(T&);
 			bool isEmpty();
-
-			bool Join(FIFOQueue<T>*);
 			void Clear();
 		private:
 			struct Node {

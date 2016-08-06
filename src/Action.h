@@ -8,7 +8,7 @@
 #ifndef SRC_ACTION_H_
 #define SRC_ACTION_H_
 
-#include "project.h"
+#include "dependencies.h"
 
 namespace Project {
 namespace Agent {

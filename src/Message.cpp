@@ -10,13 +10,19 @@
 namespace Project {
 namespace Comms {
 
-Message::Message() {
-	// TODO Auto-generated constructor stub
-
+Message::Message(Agent::AgentID* sender, const string& content) {
+	this->sender = sender;
+	this->content = content;
 }
 
-Message::~Message() {
-	// TODO Auto-generated destructor stub
+Message::~Message() {}
+
+const Agent::AgentID* Message::GetSender() {
+	return sender;
+}
+
+const string Message::GetContent() {
+	return content;
 }
 
 } /* namespace Comms */

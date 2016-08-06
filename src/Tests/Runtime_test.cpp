@@ -5,9 +5,9 @@
  *      Author: Luca Rickler
  */
 
-#include "../project.h"
 #include "../Action.h"
 #include "../Agent.h"
+#include "../dependencies.h"
 
 using Project::System::Runtime;
 
@@ -22,9 +22,11 @@ public:
 
 class MyAgent1 : public Project::Agent::Agent {
 public:
-	MyAgent1 (Runtime* runtime, string name) : Agent(runtime, name) {}
+	MyAgent1 (Runtime* runtime, string name, int id) : Agent(runtime, name, id) {
+		SetPriority(1);
+	}
 	void Setup() {
-		std::cout << "Hello world from " << name << std::endl;
+		std::cout << "Hello world from " << id->name << std::endl;
 		//Project::Agent::Action* act1 = ;
 		AddAction("act1", new MyAction(this));
 		ScheduleAction("act1");
@@ -32,7 +34,9 @@ public:
 };
 class MyAgent2 : public Project::Agent::Agent {
 public:
-	MyAgent2 (Runtime* runtime, string name) : Agent(runtime, name) {}
+	MyAgent2 (Runtime* runtime, string name, int id) : Agent(runtime, name, id) {
+		SetPriority(2);
+	}
 	void Setup() {
 		std::cout << "I shouldn't be here!"<< std::endl;
 		//Project::Agent::Action* act1 = new MyAction(this);
@@ -45,14 +49,17 @@ public:
 #include "../thread_code.h"
 
 int main() {
-	Runtime* runtime = new Runtime();
+	Runtime* runtime = new Runtime(2);
+	runtime->SetMaxTurns(5);
 
-	Project::System::CreateAgent<MyAgent1>(runtime, "agent_1");
-	Project::System::CreateAgent<MyAgent1>(runtime, "agent_2");
-	Project::System::CreateAgent<MyAgent2>(runtime, "agent_3");
+	for(int i = 0; i < 1; i++)
+		Project::System::CreateAgent<MyAgent1>(runtime, "agent_1");
+	//Project::System::CreateAgent<MyAgent1>(runtime, "agent_2");
+	for(int i = 0; i < 1; i++)
+		Project::System::CreateAgent<MyAgent2>(runtime, "agent_2");
 
-	runtime->SetMaxTurns(20);
 
-	runtime->Init(100,NULL);
+
+	runtime->Init(1,NULL);
 	return 0;
 }

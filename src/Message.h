@@ -8,15 +8,28 @@
 #ifndef SRC_MESSAGE_H_
 #define SRC_MESSAGE_H_
 
-#include "project.h"
+#include "dependencies.h"
+#include "Agent.h"
+
+
 
 namespace Project {
 	namespace Comms {
 
 		class Message {
 		public:
-			Message();
+			Message(Agent::AgentID* sender, const string& content);
 			virtual ~Message();
+
+			const Agent::AgentID* GetSender();
+			const string GetContent();
+			//void SetContent()
+
+			friend class System::Runtime;
+		private:
+			struct Agent::AgentID* sender;
+			string content;
+
 		};
 
 	} /* namespace Comms */

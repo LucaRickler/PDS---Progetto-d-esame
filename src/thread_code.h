@@ -8,7 +8,7 @@
 #ifndef SRC_THREAD_CODE_H_
 #define SRC_THREAD_CODE_H_
 
-#include "project.h"
+#include "dependencies.h"
 #include "Runtime.h"
 
 namespace Project {

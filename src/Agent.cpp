@@ -10,12 +10,12 @@
 namespace Project {
 namespace Agent {
 
-Agent::Agent(Project::System::Runtime* runtime, string name) {
+Agent::Agent(Project::System::Runtime* runtime, string name, int id) {
 	this->runtime = runtime;
 	this->myActions = unordered_map<string,Action*>();
 	this->messageQueue = System::FIFOQueue<Comms::Message*>();
-	this->name = name;
-
+	//this->name = name;
+	this->id = new AgentID(name, id);
 }
 
 Agent::~Agent() {
@@ -24,13 +24,15 @@ Agent::~Agent() {
 	while(messageQueue.Pop(msg)){
 		delete msg;
 	}
+	delete id;
 }
+
 void Agent::AddAction (const string& key, Action* action){
 	myActions.insert(ActionMapping(key,action));
 }
 
 void Agent::ScheduleAction(const string& key) {
-	runtime->ScheduleAction(GetAction(key));
+	runtime->ScheduleAction(GetAction(key), GetPriority());
 }
 
 Action* Agent::GetAction(const string& key) {
@@ -38,6 +40,27 @@ Action* Agent::GetAction(const string& key) {
 		return myActions[key];
 	return nullptr;
 }
+
+int Agent::GetPriority() {
+	return execution_priority;
+}
+
+void Agent::SetPriority(const int & p) {
+	if(p > runtime->GetExecutionDepth())
+		execution_priority = runtime->GetExecutionDepth() -1;
+	else
+		execution_priority = p-1;
+}
+
+void Agent::Send(Comms::Message* msg) {
+	runtime->DispatchMessage(msg);
+}
+
+void Agent::DeliverMessage(Comms::Message* msg) {
+	this->messageQueue.Push(msg);
+}
+
+
 
 void Agent::DoDelete() {
 	OnDelete();

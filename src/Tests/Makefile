@@ -4,10 +4,14 @@ RUNTIME = 	 ../Action.o ../FIFOQueue.o ../Agent.o ../thread_code.o ../Runtime.o 
 FIFOQ = 	../FIFOQueue.o FIFOQueue_test.o 
 AGENT = 	../Agent.o ../Action.o ../FIFOQueue.o ../Message.o Agent_test.o
 ACTION = 	../Action.o Action_test.o
+MESSAGE =	../Action.o ../FIFOQueue.o ../Agent.o ../thread_code.o ../Runtime.o Message_test.o ../Message.o
 
 OBJS = 	$(RUNTIME) $(FIFOQ) $(AGENT) $(ACTION)
 
 LIBS =
+
+MessageTest:	$(MESSAGE)
+	$(CXX) -o $@ $(MESSAGE) $(LIBS) $(CXXFLAGS)
 
 RuntimeTest:	$(RUNTIME)
 	$(CXX) -o $@ $(RUNTIME) $(LIBS) $(CXXFLAGS)
@@ -21,10 +25,10 @@ AgentTest:	$(AGENT)
 ActionTest: $(ACTION)
 	$(CXX) -o $@ $(ACTION) $(LIBS) $(CXXFLAGS)
 
-all:	RuntimeTest FIFOQTest AgentTest ActionTest
+all:	RuntimeTest FIFOQTest AgentTest ActionTest MessageTest
 
 
-TARGET = 	RuntimeTest FIFOQTest AgentTest ActionTest
+TARGET = 	RuntimeTest FIFOQTest AgentTest ActionTest MessageTest
 
 clean:
 	rm -f $(OBJS) $(TARGET)

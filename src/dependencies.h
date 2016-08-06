@@ -8,6 +8,8 @@
 #ifndef SRC_PROJECT_H_
 #define SRC_PROJECT_H_
 
+#define EXECUTION_MODE 		1
+
 namespace Project {
 
 	namespace System {
@@ -17,6 +19,7 @@ namespace Project {
 	}
 
 	namespace Agent {
+		struct AgentID;
 		class Agent;
 		class Action;
 	}

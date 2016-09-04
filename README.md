@@ -1,4 +1,4 @@
-#Progetto d'esame
+#PDS - Progetto d'esame
 
 Progetto d'esame per il corso di *Sistemi di calcolo paralleli e distribuiti*, autore Luca Rickler.
 

@@ -5,10 +5,13 @@
  *      Author: luca
  */
 
+
+#ifndef EXECUTION_MODE
+#define EXECUTION_MODE 		1
+#endif
+
 #ifndef SRC_DEPENDENCIES_H_
 #define SRC_DEPENDENCIES_H_
-
-#define EXECUTION_MODE 		1
 
 namespace Project {
 

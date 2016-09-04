@@ -1,10 +1,3 @@
-/*
- * Message_test.cpp
- *
- *  Created on: 03/ago/2016
- *      Author: luca
- */
-
 #include "../project.h"
 
 
@@ -15,7 +8,7 @@ public:
 	SenderAction(Agent::Agent* a) : Action(a) {}
 	void Act() {
 		//string content = "Message";
-		Comms::Message* msg = new Comms::Message(my_agent->GetID(), "Message received");
+		Comms::Message* msg = new Comms::Message(my_agent->GetID(), "Message received", "Confirm");
 		my_agent->Send(msg);
 		my_agent->ScheduleAction("Send");
 

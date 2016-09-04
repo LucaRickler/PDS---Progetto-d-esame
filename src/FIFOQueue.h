@@ -36,6 +36,4 @@ namespace Project {
 	} /* namespace System */
 } /* namespace AgentC */
 
-//#include "FIFOQueue.cpp"
-
 #endif /* SRC_FIFOQUEUE_H_ */

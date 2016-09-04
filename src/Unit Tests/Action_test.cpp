@@ -1,12 +1,4 @@
-/*
- * Action_test.cpp
- *
- *  Created on: 19/lug/2016
- *      Author: Luca Rickler
- */
-
 #include "../Action.h"
-//#include "../Agent.h"
 
 using Project::Agent::Action;
 using std::cout;
@@ -39,9 +31,6 @@ int main() {
 	(*func1)();
 	func1 = act2->actionReference;
 	(*func1)();
-
-	//std::function<void()>* functor = new std::function<void()>(func1);
-	//(*functor)();
 
 	return 0;
 }

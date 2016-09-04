@@ -30,9 +30,7 @@ namespace Project {
 		public:
 			Agent (System::Runtime* runtime, string name, int id);
 			virtual ~Agent ();
-			virtual void Setup ();
-			void DoDelete ();
-			virtual void OnDelete ();
+			virtual void Setup ()=0;
 
 			void AddAction (const string& key, Action* act);
 			void ScheduleAction (const string& act);
@@ -48,12 +46,10 @@ namespace Project {
 			void SetPriority (const int &);
 
 			void DeliverMessage(Comms::Message* msg);
-		protected:
-			unordered_map<string,Action*> myActions;
-			AgentID* id;
-
-			int execution_priority;
 		private:
+			unordered_map<string,Action*> myActions;
+			int execution_priority;
+			AgentID* id;
 			System::Runtime* runtime;
 			System::FIFOQueue<Comms::Message*>* messageQueue;
 		};

@@ -17,9 +17,9 @@ public:
 	Action (Agent* a);
 	virtual ~Action();
 	function<void()>* actionReference;
-	virtual void Act ();
+	virtual void Act ()=0;
+protected:
 	Agent* my_agent;
-//private:
 
 };
 

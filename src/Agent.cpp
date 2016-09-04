@@ -76,13 +76,5 @@ bool Agent::ReadMessage (Comms::Message& msg){
 	return true;
 }
 
-void Agent::DoDelete() {
-	OnDelete();
-	runtime->DeleteAgent(this);
-}
-
-void Agent::OnDelete() {}
-void Agent::Setup() {}
-
 } /* namespace Agent */
 } /* namespace Project */

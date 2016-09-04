@@ -19,8 +19,5 @@ Action::~Action() {
 	delete actionReference;
 }
 
-void Action::Act() {}
-
-
 } /* namespace Agent */
 } /* namespace Project */
